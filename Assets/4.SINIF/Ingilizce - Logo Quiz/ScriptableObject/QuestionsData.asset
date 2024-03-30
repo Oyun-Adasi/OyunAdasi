@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cf3c76d32e00f4cb26c432656f8124, type: 3}
+  m_Name: QuestionsData
+  m_EditorClassIdentifier: 
+  questions:
+  - questionImage: {fileID: 21300000, guid: b637f38fecd6c1042a94c226be4fc148, type: 3}
+    answer: cat
+  - questionImage: {fileID: 21300000, guid: 136fe977143503742b150699b73fe0f7, type: 3}
+    answer: teacher
+  - questionImage: {fileID: 21300000, guid: aabc5f7cb895dc04baa3c4af1669f1fa, type: 3}
+    answer: banana
+  - questionImage: {fileID: 21300000, guid: 1adc28cb88b0e844081504db0c01af9f, type: 3}
+    answer: apple
+  - questionImage: {fileID: 21300000, guid: 780daa2953f09ad4d8342f3d41821943, type: 3}
+    answer: orange
+  - questionImage: {fileID: 21300000, guid: 10c9f9d3058c965428c3cf707765d3be, type: 3}
+    answer: police
+  - questionImage: {fileID: 21300000, guid: 5548fb4a679ba5f45a0210a51da61de2, type: 3}
+    answer: horse
+  - questionImage: {fileID: 21300000, guid: 6c1d6c9299e94164f9333c9be7c369e4, type: 3}
+    answer: salad
+  - questionImage: {fileID: 21300000, guid: 55dbe1683390aea4fb9e4f9daea5aa8a, type: 3}
+    answer: pizza
+  - questionImage: {fileID: 21300000, guid: ec320597b8781ac45a16c854d3060069, type: 3}
+    answer: doctor
+  - questionImage: {fileID: 21300000, guid: ad080880e153bd64d9af7377a5e327d5, type: 3}
+    answer: dog
