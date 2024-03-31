@@ -24,12 +24,17 @@ public class mathLabScript : MonoBehaviour
     private bool isClickedA;//to disable the option A if the button is clicked and it was wrong
     private bool isClickedB;//to disable the option B if the button is clicked and it was wrong
     private bool isClickedC;//to disable the option C if the button is clicked and it was wrong
+    public GameObject soru;
+    public GameObject yanlis;
+    public Button quit;
 
     void Awake(){
         geriDon.gameObject.SetActive(false);
         optionA.gameObject.SetActive(false);
         optionB.gameObject.SetActive(false);
         optionC.gameObject.SetActive(false);
+        soru = GameObject.Find("soru");
+        yanlis = GameObject.Find("yanlis");
     }
     void Update()
     {
@@ -77,6 +82,7 @@ public class mathLabScript : MonoBehaviour
         optionB.gameObject.SetActive(true);
         optionC.gameObject.SetActive(true);
         randomQuestionGenerator();
+        yanlis.SetActive(false);
         startButton.gameObject.SetActive(false);
         isClickedA=false;
         isClickedB=false;
@@ -107,6 +113,7 @@ public class mathLabScript : MonoBehaviour
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
             buttonInteractOn(optionC);
+            backgroundChangerv2();
             optionsInvincible();
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
@@ -117,6 +124,7 @@ public class mathLabScript : MonoBehaviour
             question.text="Cevap yanlış olduğu için kapı açılmıyor. Geri dön ve tekrar dene!";
             buttonInteractOff(optionA);
             geriDon.gameObject.SetActive(true);
+            backgroundChanger();
             isClickedA=true;
             wrongAnswerSelected();
             
@@ -127,6 +135,7 @@ public class mathLabScript : MonoBehaviour
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
             buttonInteractOn(optionC);
+            backgroundChangerv2();
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
@@ -136,6 +145,7 @@ public class mathLabScript : MonoBehaviour
             question.text="Cevap yanlış olduğu için kapı açılmıyor. Geri dön ve tekrar dene!";
             buttonInteractOff(optionB);
             geriDon.gameObject.SetActive(true);
+            backgroundChanger();
             isClickedB=true;
             wrongAnswerSelected();
             
@@ -146,6 +156,7 @@ public class mathLabScript : MonoBehaviour
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
             buttonInteractOn(optionC);
+            backgroundChangerv2();
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
@@ -156,6 +167,7 @@ public class mathLabScript : MonoBehaviour
             question.text="Cevap yanlış olduğu için kapı açılmıyor. Geri dön ve tekrar dene!";
             buttonInteractOff(optionC);
             geriDon.gameObject.SetActive(true);
+            backgroundChanger();
             isClickedC=true;
             wrongAnswerSelected();
             
@@ -168,6 +180,7 @@ public class mathLabScript : MonoBehaviour
         optionA.gameObject.SetActive(true);
         optionB.gameObject.SetActive(true);
         optionC.gameObject.SetActive(true);
+        backgroundChangerv2();
         if(operation==0)
             question.text="Yanlış!\n"+num1+" + "+num2+" işleminin sonucu kaçtır?";
         else 
@@ -198,5 +211,20 @@ public class mathLabScript : MonoBehaviour
         optionA.gameObject.SetActive(false);
         optionB.gameObject.SetActive(false);
         optionC.gameObject.SetActive(false);
+    }
+    public void backgroundChanger() {
+        soru.SetActive(false);
+        yanlis.SetActive(true);
+}
+    public void backgroundChangerv2() {
+        soru.SetActive(true);
+        yanlis.SetActive(false);
+
+    }
+
+    public void Quit() {
+        Application.Quit();
+        Debug.Log("Quit");
+
     }
     }
