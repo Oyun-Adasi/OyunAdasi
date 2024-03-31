@@ -17,8 +17,9 @@ public class QuestionManager : MonoBehaviour
   public GameObject Reset1;
 
   private int currentQuestion = 0;
-  private static int score = 0;
+  private static float score = 100;
   private static int scoreYanlis = 0;
+  public int wrongReply = 0;
 
   void Start()
   {
@@ -63,9 +64,6 @@ public class QuestionManager : MonoBehaviour
   {
     if (replyIndex == qtsData.questions[currentQuestion].correctReplyIndex)
     {
-      score++;
-      scoreText.text = "" + score;
-
       Right.gameObject.SetActive(true);
 
       foreach (Button r in replyButtons)
@@ -77,14 +75,11 @@ public class QuestionManager : MonoBehaviour
     }
     else
     {
+      wrongReply = replyIndex;
       scoreYanlis++;
+      score = score - score / 6;
+      scoreText.text = "" + score;
       Wrong.gameObject.SetActive(true);
-
-      foreach (Button r in replyButtons)
-      {
-        r.interactable = false;
-      }
-      
       
       StartCoroutine(NextFalse());
     }
@@ -105,7 +100,7 @@ public class QuestionManager : MonoBehaviour
       GameFinished.SetActive(true);
       Reset1.gameObject.SetActive(true);
 
-      FinalScore.text = "Doğru sayınız: " + score + "\nYanlış Sayınız: " + scoreYanlis;
+      FinalScore.text = "Puanınız: " + score + "\nYanlış Sayınız: " + scoreYanlis;
 
       if (scoreYanlis > 0)
       {
@@ -121,13 +116,10 @@ public class QuestionManager : MonoBehaviour
   IEnumerator NextFalse()
   {
     yield return new WaitForSeconds(2);
-    
-    Wrong.gameObject.SetActive(false);
 
-    foreach (Button r in replyButtons)
-    {
-      r.interactable = true;
-    }
+    Wrong.gameObject.SetActive(false);
+    
+    replyButtons[wrongReply].interactable = false;
   }
 
   public void Reset()
@@ -146,7 +138,7 @@ public class QuestionManager : MonoBehaviour
   public void Restart()
   {
     currentQuestion = 0;
-    score = 0;
+    score = 100;
     scoreYanlis = 0;
     
     SetQuestion(currentQuestion);
