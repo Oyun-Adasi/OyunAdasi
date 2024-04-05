@@ -609,6 +609,11 @@ MonoBehaviour:
   optionB: {fileID: 2008571030}
   optionC: {fileID: 681221312}
   text: {fileID: 535852093}
+  optionAText: {fileID: 1131072778}
+  optionBText: {fileID: 701045332}
+  optionCText: {fileID: 1739225490}
+  correctNum: 0
+  taken: 000000
   words:
   - Ev
   - Araba
