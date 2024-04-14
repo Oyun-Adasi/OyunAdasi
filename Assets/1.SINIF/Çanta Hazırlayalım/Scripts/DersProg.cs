@@ -5,16 +5,14 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Kontrolcü : MonoBehaviour
+public class DersProg : MonoBehaviour
 {
-    Vector3 offset;
+
     new Collider2D collider2D;
-    public string destinationTag = "DropArea";
-    public bool isRequired;
     public TextMeshProUGUI DersProgramı;
-    //public TextMeshProUGUI wrongText;
-    //public TextMeshProUGUI trueText;
-    //public Yönetici yönetici;
+    public GameObject doğruText;
+    public GameObject yanlışText;
+    public TextMeshProUGUI bitirme;
     Ders Türkçe;
     Ders Matematik;
     Ders HayatBilgisi;
@@ -24,14 +22,18 @@ public class Kontrolcü : MonoBehaviour
     Ders SerbestEtkinlikler;
     Ders[] dersProgramı;
     Ders[] dersler;
+    string[] herDers;
     int remainingIndex0;
     int remainingIndex1;
-    
-
-    public int score = 0;
+    int score=100;
+    int neededItems=1;
+    int putItems=0;
+    public TextMeshProUGUI start;
 
 void Awake()
 {
+    doğruText.SetActive(false);
+    yanlışText.SetActive(false);
     collider2D = GetComponent<Collider2D>();
     dersler = new Ders[]
     {
@@ -48,71 +50,10 @@ void Awake()
 }
     void Start()
     {
-        //wrongText.gameObject.SetActive(false);
-        //trueText.gameObject.SetActive(false);
         DersProgramıGenerator();
+        CreateHerDersArray();
+        NeededItemsCalculator();
 
-    }
-
-    void OnMouseDown()
-    {
-        offset = transform.position - MouseWorldPosition();
-    }
-
-    void OnMouseDrag()
-    {
-        transform.position = MouseWorldPosition() + offset;
-    }
-
-    void OnMouseUp()
-    {
-        collider2D.enabled = false;
-        var rayOrigin = Camera.main.transform.position;
-        var rayDirection = MouseWorldPosition() - Camera.main.transform.position;
-        RaycastHit2D hitInfo;
-
-        if (hitInfo = Physics2D.Raycast(rayOrigin, rayDirection))
-        {
-            if (hitInfo.transform.tag == destinationTag && isRequired == true)
-            {
-                transform.position = hitInfo.transform.position + new Vector3(0, 0, -0.01f);
-                //trueText.gameObject.SetActive(true);
-                Invoke("TrueTextSetActiveFalse", 1);
-                Destroy(gameObject, 1);
-
-                //int requiredObjectLastIndex = yönetici.requiredObject.Count - 1;
-                //yönetici.requiredObject.RemoveAt(requiredObjectLastIndex);
-            }
-            else
-            {
-                transform.position = hitInfo.transform.position + new Vector3(0, 0, -0.01f);
-                //wrongText.gameObject.SetActive(true);
-                Invoke("WrongTextSetActiveFalse", 1);
-                Destroy(gameObject, 1);
-
-                //int unrequiredObjectLastIndex = yönetici.unrequiredObject.Count - 1;
-                //yönetici.unrequiredObject.RemoveAt(unrequiredObjectLastIndex);
-            }
-        }
-        collider2D.enabled = true;
-    }
-
-
-    void TrueTextSetActiveFalse()
-    {
-        //trueText.gameObject.SetActive(false);
-    }
-
-    void WrongTextSetActiveFalse()
-    {
-        //wrongText.gameObject.SetActive(false);
-    }
-
-    Vector3 MouseWorldPosition()
-    {
-        var mouseScreenPos = Input.mousePosition;
-        mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
-        return Camera.main.ScreenToWorldPoint(mouseScreenPos);
     }
 void DersProgramıGenerator()
 {
@@ -182,7 +123,6 @@ else
 
     for (int i = 0; i < dersProgramı.Length; i++)
     {
-        Debug.Log(i+" "+dersProgramı[i].dersİsim);
         DersProgramı.text += "Ders " + (i + 1) + ": " + dersProgramı[i].dersİsim + "\n";
     }
 }
@@ -194,6 +134,99 @@ Ders SelectRandomLesson(List<Ders> lessons)
 }
     public void resetGame()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+public void CheckDroppedObject(GameObject droppedObject)
+{
+    string droppedObjectName = droppedObject.name;
+    bool found = false;
+
+    for (int i = 0; i < herDers.Length; i++)
+    {
+        if (herDers[i] == droppedObjectName)
+        {
+            yanlışText.SetActive(false);
+            doğruText.SetActive(true);
+            found = true;
+            putItems++;
+            break;
+            
+        }
+        else if (droppedObjectName == "Kalemlik")
+        {
+            yanlışText.SetActive(false);
+            doğruText.SetActive(true);
+            found = true;
+            putItems++;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        Debug.Log("Yanlış!");
+        yanlışText.SetActive(true);
+        doğruText.SetActive(false);
+        score-=10;
+        putItems++;
+    }
+}
+void CreateHerDersArray()
+    {
+        List<string> dersList = new List<string>();
+
+        for (int i = 0; i < dersProgramı.Length; i++)
+        {
+            string dersİsim = dersProgramı[i].dersİsim;
+
+            if (!dersList.Contains(dersİsim))
+            {
+                dersList.Add(dersİsim);
+            }
+        }
+
+        herDers = dersList.ToArray();
+    }
+    void NeededItemsCalculator(){
+        for(int i=0;i<herDers.Length;i++){
+            switch(herDers[i]){
+                case "Türkçe":
+                    neededItems+=2;
+                    break;
+                case "Matematik":
+                    neededItems+=2;
+                    break;
+                case "Hayat Bilgisi":
+                    neededItems+=2;
+                    break;
+                case "Görsel Sanatlar":
+                    neededItems+=2;
+                    break;
+                case "Müzik":
+                    neededItems+=3;
+                    break;
+                case "Oyun Ve Fiziki Etkinlikler":
+                    neededItems+=1;
+                    break;
+                case "Serbest Etkinlikler":
+                    neededItems+=1;
+                    break;
+            }
+        }
+        Debug.Log(neededItems);
+        start.text+=" İpucu: "+neededItems+" tane eşya koyman gerekiyor!";
+    }
+    public void Finish(){
+        doğruText.SetActive(false);
+        yanlışText.SetActive(false);
+        if(score==100&&putItems==neededItems){
+            bitirme.text="Tebrikler! Tüm gerekli eşyaları koydun!";
+        }
+        else{
+            bitirme.text="Maalesef tüm eşyaları koyamadın. Tekrar dene!";
+        }
+    }
+    public void Reset(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
