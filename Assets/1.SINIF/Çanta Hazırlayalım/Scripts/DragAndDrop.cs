@@ -21,7 +21,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private DersProg dersProgScript;
     private Vector2 initialPosition;
     bool isInPlace=false;
-
+    [SerializeField] Transform dropZone;
 
     void Start()
     {
@@ -40,9 +40,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log(gameObject.name);
-        parentAfterDrag = transform.parent;
-        transform.SetParent(parentAfterDrag.parent);
+       //parentAfterDrag = transform.parent;
+        //transform.SetParent(parentAfterDrag.parent);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -64,7 +63,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 Debug.LogError("DersProg script not found.");
             }
 
-            transform.SetParent(parentAfterDrag);
+            transform.SetParent(dropZone);
         }
     }
 
