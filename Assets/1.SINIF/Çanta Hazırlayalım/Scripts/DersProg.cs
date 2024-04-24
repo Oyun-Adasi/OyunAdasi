@@ -148,15 +148,17 @@ public void CheckDroppedObject(GameObject droppedObject)
             yanlışText.SetActive(false);
             doğruText.SetActive(true);
             found = true;
+            droppedObject.SetActive(false);
             putItems++;
             break;
             
         }
-        else if (droppedObjectName == "Kalemlik")
+        else if (droppedObjectName == "Sabit")
         {
             yanlışText.SetActive(false);
             doğruText.SetActive(true);
             found = true;
+            droppedObject.SetActive(false);
             putItems++;
             break;
         }
