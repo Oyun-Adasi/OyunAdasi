@@ -6,11 +6,11 @@ using TMPro;
 
 public class QuizManagerTR : MonoBehaviour
 {
-    public List<QuestionAndAnswerDin> QnA;
+    public List<QuestionAndAnswerTR> QnA;
     public GameObject[] options;
     public int currentQuestion;
 
-    public GameObject QuestionText;
+    public Image QuestionImage; // Image türünde değişken tanımlandı
 
     private void Start()
     {
@@ -27,12 +27,12 @@ public class QuizManagerTR : MonoBehaviour
     {
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].GetComponent<AnswerScriptDin>().isCorrect = false;
+            options[i].GetComponent<AnswerScriptTR>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = QnA[currentQuestion].Answers[i];
 
             if (QnA[currentQuestion].CorrectAnswer == i + 1)
             {
-                options[i].GetComponent<AnswerScriptDin>().isCorrect = true;
+                options[i].GetComponent<AnswerScriptTR>().isCorrect = true;
             }
         }
     }
@@ -41,6 +41,10 @@ public class QuizManagerTR : MonoBehaviour
     {
         currentQuestion = Random.Range(0, QnA.Count);
 
+        QuestionImage.sprite = QnA[currentQuestion].Question;
+
         SetAnswers();
     }
+
+
 }

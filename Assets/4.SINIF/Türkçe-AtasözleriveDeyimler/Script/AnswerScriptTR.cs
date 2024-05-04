@@ -5,19 +5,19 @@ using UnityEngine;
 public class AnswerScriptTR : MonoBehaviour
 {
     public bool isCorrect = false;
-    public QuizManagerDin quizManager;
+    public QuizManagerTR quizManagerTR;
 
     public void Answers()
     {
         if (isCorrect)
         {
             Debug.Log("CorrectAnswer");
-            quizManager.Correct();
+            quizManagerTR.Correct();
         }
         else
         {
             Debug.Log("WrongAnswer");
-            quizManager.Correct();
+            quizManagerTR.Correct();
         }
     }
 }

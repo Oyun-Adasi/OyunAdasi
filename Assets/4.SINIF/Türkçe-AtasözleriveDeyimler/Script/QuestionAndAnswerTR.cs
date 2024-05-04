@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
-public class QuestionAndAnswerDinTR
+public class QuestionAndAnswerTR
 {
-    public GameObject Question;
+    public Sprite Question;
     public string[] Answers;
     public int CorrectAnswer;
 }
