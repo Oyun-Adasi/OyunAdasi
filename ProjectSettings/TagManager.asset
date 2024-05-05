@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 2
+  - 7
+  - 6
+  - 5
+  - 3
+  - 1
+  - 8
+  - 4
+  - gaz
+  - fren
+  - sol
+  - sag
   layers:
   - Default
   - TransparentFX
