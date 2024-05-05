@@ -9,49 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0fa9eb135acbfb4e9d6d7b71b0581cc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac1acf0c945dcce4292f1c9e9374f89a, type: 3}
   m_Name: TouristQts
   m_EditorClassIdentifier: 
-  questions:
-  - questionText: I want to read a book
-    replies:
-    - Beach
-    - Museum
-    - Market
-    - Library
-    - Hospital
-    - Restourant
-    correctReplyIndex: 5
-  - questionText: I am hungry, I want to eat
-    replies:
-    - Beach
-    - Museum
-    - Market
-    - Library
-    - Hospital
-    - Restourant
-    correctReplyIndex: 4
-  - questionText: 'I want to watch a theater play '
-    replies:
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    correctReplyIndex: 3
-  - questionText: I want to get on a ship
-    replies:
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    correctReplyIndex: 0
-  - questionText: I want to do grocery shoping
-    replies: []
-    correctReplyIndex: 2
-  - questionText: I want to walk my dog
-    replies: []
-    correctReplyIndex: 1
+  questions: []

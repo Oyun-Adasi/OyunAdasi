@@ -10,7 +10,7 @@ public class QtsManager : MonoBehaviour
   public Text scoreText;
   public Text FinalScore;
   public Button[] answButtons;
-  public QuestionData qtsDatas;
+  public QusetionData3SINIF qtsDatas;
   public GameObject True;
   public GameObject Wrong;
   public GameObject GameOver;
@@ -43,19 +43,19 @@ public class QtsManager : MonoBehaviour
 
       for (int i = 0; i < answButtons.Length; i++)
       {
-        
+
         if (answButtons[i].GetComponentInChildren<Text>() != null)
         {
           answButtons[i].GetComponentInChildren<Text>().text = qtsDatas.questions[questionIndex].replies[i];
         }
-        
+
         int replyIndex = i;
         answButtons[i].onClick.AddListener(() => { CheckReply(replyIndex); });
       }
     }
     else
     {
-      
+
       Debug.LogError("qtsData or questions array is null!");
     }
   }
@@ -80,7 +80,7 @@ public class QtsManager : MonoBehaviour
       scr = scr - scr / 6;
       scoreText.text = "" + scr;
       Wrong.gameObject.SetActive(true);
-      
+
       StartCoroutine(NextFalse());
     }
   }
@@ -118,7 +118,7 @@ public class QtsManager : MonoBehaviour
     yield return new WaitForSeconds(2);
 
     Wrong.gameObject.SetActive(false);
-    
+
     answButtons[wrongRply].interactable = false;
   }
 
@@ -140,13 +140,13 @@ public class QtsManager : MonoBehaviour
     currentQts = 0;
     scr = 100;
     scrYanlis = 0;
-    
+
     SetQuestion(currentQts);
     True.gameObject.SetActive(false);
     Wrong.gameObject.SetActive(false);
     GameOver.gameObject.SetActive(false);
     Resets.gameObject.SetActive(false);
-    
+
     foreach (Button r in answButtons)
     {
       r.interactable = true;
