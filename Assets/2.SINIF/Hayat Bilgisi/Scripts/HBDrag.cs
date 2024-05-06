@@ -42,7 +42,7 @@ public class HBDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         canvasGroup.alpha = 1f;
 
         // Drag işlemi tamamlandığında, DropZone ile etkileşime geç
-        if (!isInPlace && dropZone != null)
+        if (isInPlace && dropZone != null)
         {
             dropZone.OnDrop(eventData);
         }
