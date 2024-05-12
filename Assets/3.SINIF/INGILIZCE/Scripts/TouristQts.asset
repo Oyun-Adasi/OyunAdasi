@@ -13,3 +13,22 @@ MonoBehaviour:
   m_Name: TouristQts
   m_EditorClassIdentifier: 
   questions: []
+  questions:
+  - questionText: Im hungary, I want to eat something.
+    replies: []
+    correctReplyIndex: 4
+  - questionText: I want to watch a play.
+    replies: []
+    correctReplyIndex: 3
+  - questionText: I want to read a book.
+    replies: []
+    correctReplyIndex: 5
+  - questionText: I want to get on a ship.
+    replies: []
+    correctReplyIndex: 0
+  - questionText: I want to walk my dog.
+    replies: []
+    correctReplyIndex: 1
+  - questionText: I want to buy some snacks.
+    replies: []
+    correctReplyIndex: 2
