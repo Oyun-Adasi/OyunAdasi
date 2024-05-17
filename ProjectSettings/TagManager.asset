@@ -16,6 +16,9 @@ TagManager:
   - fren
   - sol
   - sag
+  - Spawner
+  - Draggable
+  - Cable
   layers:
   - Default
   - TransparentFX

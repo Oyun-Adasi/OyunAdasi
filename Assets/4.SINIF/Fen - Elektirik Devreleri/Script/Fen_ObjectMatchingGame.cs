@@ -1,23 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(LineRenderer))]
-public class ObjectMatchingGame : MonoBehaviour
+public class Fen_ObjectMatchingGame : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     [SerializeField] private int matchId;
     private bool isDragging;
     private Vector3 endPoint;
     private ObjectMatchFrom objectMatchFrom;
-    private Fen_GM gameManager;
-
-    public bool IsMatched { get; private set; } // Eşleşme durumunu izlemek için
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        gameManager = FindObjectOfType<Fen_GM>();
     }
 
     private void Update()
@@ -48,9 +46,7 @@ public class ObjectMatchingGame : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(endPoint, Vector2.zero);
             if (hit.collider != null && hit.collider.TryGetComponent(out objectMatchFrom) && matchId == objectMatchFrom.Get_ID())
             {
-                Debug.Log("Correct From!");
-                IsMatched = true;
-                gameManager.OnCorrectMatch(); // Doğru eşleşme olduğunda GameManager'a bildirim gönderildi
+                Debug.Log("Correct From !");
                 this.enabled = false;
             }
             else
