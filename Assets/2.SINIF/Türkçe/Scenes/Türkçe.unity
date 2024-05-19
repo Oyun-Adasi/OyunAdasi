@@ -407,7 +407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 561794550}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 664093882}
+        m_TargetAssemblyTypeName: Vplay, Assembly-CSharp
+        m_MethodName: OptionSelectedA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &561794550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,7 +604,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808623949}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 664093882}
+        m_TargetAssemblyTypeName: Vplay, Assembly-CSharp
+        m_MethodName: OptionSelectedB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &808623949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1110,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1215281906}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 664093882}
+        m_TargetAssemblyTypeName: Vplay, Assembly-CSharp
+        m_MethodName: OptionSelectedC
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1215281906
 MonoBehaviour:
   m_ObjectHideFlags: 0

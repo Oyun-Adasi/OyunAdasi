@@ -12,7 +12,6 @@ public class Vplay : MonoBehaviour
     [SerializeField] public AudioClip[] audioClips;
     public string[] questions;
     public string[] answers;
-    //public GameObject Restart;
     public CustomGameObject[] optionArr;
     public CustomGameObject optionA;
     public CustomGameObject optionB;
@@ -28,6 +27,9 @@ public class Vplay : MonoBehaviour
     bool[] takenAns;
     bool[] askedIndexes;
     int correctIndex;
+    bool isQuestionDisplayed = false;
+    CustomGameObject clickedOption;
+    bool isCorrect;
 
     void Start()
     {
@@ -53,54 +55,47 @@ public class Vplay : MonoBehaviour
         playGame();
     }
 
-    void Update()
-    {
-
-    }
-
     void OptionModifier(int correctIndex, string[] arr)
+{
+    List<string> options = new List<string>(arr);
+    
+    // Shuffle the options
+    options = ShuffleList(options);
+    
+    // Assign the options to the buttons
+    optionA.optionText.text = options[0];
+    optionB.optionText.text = options[1];
+    optionC.optionText.text = options[2];
+    
+    // Mark the options as taken
+    optionA.taken = true;
+    optionB.taken = true;
+    optionC.taken = true;
+}
+
+List<string> ShuffleList(List<string> list)
+{
+    List<string> shuffledList = new List<string>(list);
+    
+    // Shuffle the list using Fisher-Yates shuffle algorithm
+    for (int i = shuffledList.Count - 1; i > 0; i--)
     {
-        int a = Random.Range(0, optionArr.Length);
-        switch (a)
-        {
-            case 0:
-                optionA.optionText.text = arr[correctIndex];
-                optionA.taken = true;
-                break;
-            case 1:
-                optionB.optionText.text = arr[correctIndex];
-                optionB.taken = true;
-                break;
-            case 2:
-                optionC.optionText.text = arr[correctIndex];
-                optionC.taken = true;
-                break;
-        }
-
-        List<string> unusedAns = new List<string>(arr);
-        unusedAns.RemoveAt(correctIndex);
-
-        for (int i = 0; i < optionArr.Length; i++)
-        {
-            if (!optionArr[i].taken)
-            {
-                int randomIndex = Random.Range(0, unusedAns.Count);
-                optionArr[i].optionText.text = unusedAns[randomIndex];
-                unusedAns.RemoveAt(randomIndex);
-                optionArr[i].taken = true;
-            }
-        }
+        int j = Random.Range(0, i + 1);
+        string temp = shuffledList[i];
+        shuffledList[i] = shuffledList[j];
+        shuffledList[j] = temp;
     }
+    
+    return shuffledList;
+}
 
-    void PlayAudioAndShowQuestion()
-    {
-        int randomIndex = Random.Range(0, audioClips.Length);
-        AudioSource.PlayClipAtPoint(audioClips[randomIndex], Vector3.zero);
+void PlayAudioAndShowQuestion()
+{
+    AudioSource.PlayClipAtPoint(audioClips[correctIndex], Vector3.zero);
+    isQuestionDisplayed = true;
+}
 
-        ShowQuestionAndAnswers(randomIndex);
-    }
-
-    void ShowQuestionAndAnswers(int audioIndex)
+    void ShowQuestionAndAnswers()
     {
         // Soruyu göster
         int questionIndex = CorrectAnswerDecider(askedIndexes);
@@ -116,7 +111,7 @@ public class Vplay : MonoBehaviour
         }
 
         // Audio dosyasını çal
-        AudioSource.PlayClipAtPoint(audioClips[audioIndex], Vector3.zero);
+        AudioSource.PlayClipAtPoint(audioClips[questionIndex], Vector3.zero);
 
         q.text = questions[questionIndex];
         takenAns[questionIndex] = true;
@@ -124,42 +119,36 @@ public class Vplay : MonoBehaviour
         askedIndexes[questionIndex] = true;
     }
 
-    void CheckAnswer(int correctIndex)
+    void CheckAnswer()
+{
+    if (answers[correctIndex] == clickedOption.optionText.text)
     {
-        if (optionA.button.interactable || optionB.button.interactable || optionC.button.interactable)
-        {
-            return;
-        }
-
-        if (correctIndex == 0 && optionA.button.interactable)
-        {
-            // Correct answer
-            // Handle correct answer
-            playGame();
-        }
-        else if (correctIndex == 1 && optionB.button.interactable)
-        {
-            // Correct answer
-            // Handle correct answer
-            playGame();
-        }
-        else if (correctIndex == 2 && optionC.button.interactable)
-        {
-            // Correct answer
-            // Handle correct answer
-            playGame();
-        }
-        else
-        {
-            // Incorrect answer
-            // Show same question again
-            ShowQuestionAndAnswers(correctIndex);
-        }
+        Debug.Log("Correct");
+        // Correct answer
+        isCorrect = true;
+        playGame();
     }
-
-    public void OptionSelected(int optionIndex)
+    else
     {
-        CheckAnswer(correctIndex);
+        // Wrong answer
+        Debug.Log("Wrong");
+        clickedOption.gameObject.SetActive(false);
+        isCorrect = false;
+    }
+}    public void OptionSelectedA()
+    {
+        clickedOption=optionA;
+        CheckAnswer();
+    }
+    public void OptionSelectedB()
+    {
+        clickedOption=optionB;
+        CheckAnswer();
+    }
+    public void OptionSelectedC()
+    {
+        clickedOption=optionC;
+        CheckAnswer();
     }
 
     public void Reset()
@@ -197,7 +186,7 @@ public class Vplay : MonoBehaviour
         correctIndex = CorrectAnswerDecider(askedIndexes);
         if (correctIndex == -1)
         {
-            //GameOver();
+            GameOver();
         }
         else
         {
@@ -241,5 +230,10 @@ public class Vplay : MonoBehaviour
             }
             return index;
         }
+    }
+    void GameOver(){
+        q.text="Oyunu bitirdiniz! Tebrikler!";
+        options(1);
+        voiceButton.interactable=false;
     }
 }
