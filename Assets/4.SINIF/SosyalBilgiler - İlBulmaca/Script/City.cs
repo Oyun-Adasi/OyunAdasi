@@ -26,7 +26,19 @@ public class City : MonoBehaviour
     void ShowQuestion()
     {
         string correctAnswer = ilAdi;
-        string[] allCities = { "İstanbul", "Ankara", "İzmir", "Bursa", "Adana", /* Diğer iller */ };
+        string[] allCities = {
+            "Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya",
+            "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur",
+            "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne",
+            "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane",
+            "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu",
+            "Kayseri", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya",
+            "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu",
+            "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat",
+            "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray",
+            "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan",
+            "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"
+            };
         System.Collections.Generic.List<string> options = new System.Collections.Generic.List<string>();
 
         options.Add(correctAnswer);
