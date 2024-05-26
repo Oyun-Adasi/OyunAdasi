@@ -26,7 +26,7 @@ public class DersProg : MonoBehaviour
     int remainingIndex0;
     int remainingIndex1;
     int score=100;
-    int neededItems=1;
+    int neededItems=3;
     int putItems=0;
     public TextMeshProUGUI start;
 
@@ -170,7 +170,6 @@ public void CheckDroppedObject(GameObject droppedObject)
         yanlışText.SetActive(true);
         doğruText.SetActive(false);
         score-=10;
-        putItems++;
     }
 }
 void CreateHerDersArray()
@@ -193,22 +192,22 @@ void CreateHerDersArray()
         for(int i=0;i<herDers.Length;i++){
             switch(herDers[i]){
                 case "Türkçe":
-                    neededItems+=2;
+                    neededItems+=1;
                     break;
                 case "Matematik":
-                    neededItems+=2;
+                    neededItems+=5;
                     break;
                 case "Hayat Bilgisi":
-                    neededItems+=2;
+                    neededItems+=1;
                     break;
                 case "Görsel Sanatlar":
-                    neededItems+=2;
+                    neededItems+=4;
                     break;
                 case "Müzik":
-                    neededItems+=3;
+                    neededItems+=0;
                     break;
                 case "Oyun Ve Fiziki Etkinlikler":
-                    neededItems+=1;
+                    neededItems+=0;
                     break;
                 case "Serbest Etkinlikler":
                     neededItems+=1;
@@ -221,7 +220,7 @@ void CreateHerDersArray()
     public void Finish(){
         doğruText.SetActive(false);
         yanlışText.SetActive(false);
-        if(score==100&&putItems==neededItems){
+        if(putItems==neededItems){
             bitirme.text="Tebrikler! Tüm gerekli eşyaları koydun!";
         }
         else{
@@ -231,6 +230,7 @@ void CreateHerDersArray()
     public void Reset(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
 }
 public class Ders
 {
