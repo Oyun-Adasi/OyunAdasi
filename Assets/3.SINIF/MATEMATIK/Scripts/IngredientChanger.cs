@@ -40,22 +40,22 @@ public class IngredientChanger : MonoBehaviour
 
     void Update()
     {
-         
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
             if (hit.collider != null)
             {
                 spriteInt = _mouseTakip.toppingInt;
                 colliderNumber = int.Parse(hit.collider.tag);
+                Debug.Log(hit.collider + " " + colliderNumber);
                 spriteRenderer = slices[colliderNumber].GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = ingredientSprites[spriteInt];
                 if (spriteRenderer != null)
                 {
                     IngredientCounter();
-                    
+
                 }
             }
             else if (hit.collider == null)
@@ -106,63 +106,63 @@ public class IngredientChanger : MonoBehaviour
         cornDesired = ingredientValues[1];
         salamiDesired = ingredientValues[2];
         mushroomDesired = ingredientValues[3];
-        
+
         conditionText.text = cornDesired + "/8 Corn " + mushroomDesired + "/8 Mushroom " + salamiDesired + "/8 Salami " +
                              oliveDesired + "/8 Olive ";
     }
     public void ResetGame()
     {
-        
+
         olive = 0;
         corn = 0;
         salami = 0;
         mushroom = 0;
 
-        
+
         spriteInt = 4;
 
-      
-        for (int i =0 ;i <9; i++ )
+
+        for (int i = 0; i < 9; i++)
         {
             sliceRenderer = slices[i].GetComponent<SpriteRenderer>();
             sliceRenderer.sprite = null;
         }
 
-        
-        
+
+
     }
 
     public void CheckIngredients()
     {
-        bool ingredientsCorrect = olive == oliveDesired  &&
+        bool ingredientsCorrect = olive == oliveDesired &&
                                   corn == cornDesired &&
                                   salami == salamiDesired &&
                                   mushroom == mushroomDesired;
 
         if (ingredientsCorrect)
         {
-           winScreen.SetActive(true);
-           score = score + 10;
+            winScreen.SetActive(true);
+            score = score + 10;
         }
         else
         {
-           loseScreen.SetActive(true);
-           score = score - 10;
+            loseScreen.SetActive(true);
+            score = score - 10;
         }
     }
     public void NextQuestion()
     {
-        
+
         olive = 0;
         corn = 0;
         salami = 0;
         mushroom = 0;
 
-        
+
         spriteInt = 4;
 
-      
-        for (int i =0 ;i <9; i++ )
+
+        for (int i = 0; i < 9; i++)
         {
             sliceRenderer = slices[i].GetComponent<SpriteRenderer>();
             sliceRenderer.sprite = null;
