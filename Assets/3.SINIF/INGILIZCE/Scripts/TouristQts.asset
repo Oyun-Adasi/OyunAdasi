@@ -12,23 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1acf0c945dcce4292f1c9e9374f89a, type: 3}
   m_Name: TouristQts
   m_EditorClassIdentifier: 
-  questions: []
   questions:
-  - questionText: Im hungary, I want to eat something.
-    replies: []
-    correctReplyIndex: 4
-  - questionText: I want to watch a play.
-    replies: []
-    correctReplyIndex: 3
-  - questionText: I want to read a book.
-    replies: []
-    correctReplyIndex: 5
   - questionText: I want to get on a ship.
     replies: []
     correctReplyIndex: 0
   - questionText: I want to walk my dog.
     replies: []
     correctReplyIndex: 1
-  - questionText: I want to buy some snacks.
+  - questionText: I wabt to buy some snacks.
     replies: []
     correctReplyIndex: 2
+  - questionText: I want to watch a play.
+    replies: []
+    correctReplyIndex: 3
+  - questionText: I want to eat dinner.
+    replies: []
+    correctReplyIndex: 4
+  - questionText: I want to read book.
+    replies: []
+    correctReplyIndex: 5
