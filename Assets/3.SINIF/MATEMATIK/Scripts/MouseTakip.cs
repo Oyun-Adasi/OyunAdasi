@@ -26,27 +26,27 @@ public class MouseTakip : MonoBehaviour
 
     public void PickMushroom()
     {
-        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[3];
-        toppingInt = 3;
+        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[4];
+        toppingInt = 4;
 
     }
 
     public void PickSalami()
     {
-        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[2];
-        toppingInt = 2;
+        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[3];
+        toppingInt = 3;
 
     }
     public void PickOlive()
     {
-        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[0];
-        toppingInt = 0;
+        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[1];
+        toppingInt = 1;
 
     }
     public void PickCorn()
     {
-        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[1];
-        toppingInt = 1;
+        carryObject.GetComponent<UnityEngine.UI.Image>().sprite = ingredientSprites[2];
+        toppingInt = 2;
 
     }
 

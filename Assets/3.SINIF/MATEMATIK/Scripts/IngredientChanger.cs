@@ -47,6 +47,10 @@ public class IngredientChanger : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
             if (hit.collider != null)
             {
+                /*if (spriteRenderer != null)
+                {
+                    IngredientDeCounter();
+                }*/
                 spriteInt = _mouseTakip.toppingInt;
                 colliderNumber = int.Parse(hit.collider.tag);
                 Debug.Log(hit.collider + " " + colliderNumber);
@@ -55,7 +59,7 @@ public class IngredientChanger : MonoBehaviour
                 if (spriteRenderer != null)
                 {
                     IngredientCounter();
-
+                    
                 }
             }
             else if (hit.collider == null)
@@ -67,23 +71,43 @@ public class IngredientChanger : MonoBehaviour
 
     void IngredientCounter()
     {
-        if (spriteInt == 0)
+        if (spriteInt == 1)
         {
             olive++;
         }
-        else if (spriteInt == 1)
+        else if (spriteInt == 2)
         {
             corn++;
         }
-        else if (spriteInt == 2)
+        else if (spriteInt == 3)
         {
             salami++;
         }
-        else if (spriteInt == 3)
+        else if (spriteInt == 4)
         {
             mushroom++;
         }
     }
+
+    /*void IngredientDeCounter()
+    {
+        if (spriteInt == 1)
+        {
+            olive--;
+        }
+    else if (spriteInt == 2)
+        {
+            corn--;
+        }
+    else if (spriteInt == 3)
+        {
+            salami--;
+        }
+    else if (spriteInt == 4)
+        {
+            mushroom--;
+        }
+    }*/
 
     void RandomizeIngredients()
     {
