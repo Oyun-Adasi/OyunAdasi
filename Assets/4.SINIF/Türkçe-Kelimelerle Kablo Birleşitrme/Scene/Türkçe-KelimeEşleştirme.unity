@@ -1418,6 +1418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchId: 1
+  scoreText: {fileID: 0}
+  finalScoreText: {fileID: 0}
 --- !u!120 &1162159639
 LineRenderer:
   serializedVersion: 2
@@ -1904,6 +1906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchId: 3
+  scoreText: {fileID: 0}
+  finalScoreText: {fileID: 0}
 --- !u!120 &1542772608
 LineRenderer:
   serializedVersion: 2
@@ -2324,6 +2328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchId: 2
+  scoreText: {fileID: 0}
+  finalScoreText: {fileID: 0}
 --- !u!120 &1810034766
 LineRenderer:
   serializedVersion: 2

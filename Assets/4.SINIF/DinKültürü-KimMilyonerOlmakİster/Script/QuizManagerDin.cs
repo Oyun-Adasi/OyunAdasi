@@ -9,18 +9,58 @@ public class QuizManagerDin : MonoBehaviour
     public List<QuestionAndAnswerDin> QnA;
     public GameObject[] options;
     public int currentQuestion;
-
     public TextMeshProUGUI QuestionText;
+
+    public TextMeshProUGUI FeedbackText;
+    public TextMeshProUGUI ScoreText;
+
+    private int score = 0;
 
     private void Start()
     {
-        GenerateQuestion();
+        if (QnA.Count > 0)
+        {
+            GenerateQuestion();
+        }
+        else
+        {
+            Debug.LogError("No questions available in the QnA list.");
+        }
     }
+
 
     public void Correct()
     {
+        score++;
+        UpdateScore();
+        FeedbackText.text = "Correct!";
         QnA.RemoveAt(currentQuestion);
-        GenerateQuestion();
+
+        if (QnA.Count > 0)
+        {
+            GenerateQuestion();
+        }
+        else
+        {
+            Debug.Log("Quiz Finished");
+            FeedbackText.text = "Quiz Finished! Your score: " + score;
+        }
+    }
+
+    public void Incorrect()
+    {
+        FeedbackText.text = "Incorrect!";
+        Debug.Log("Wrong Answer");
+
+        if (QnA.Count > 0)
+        {
+            GenerateQuestion();
+        }
+        else
+        {
+            Debug.Log("Quiz Finished");
+            FeedbackText.text = "Quiz Finished! Your score: " + score;
+        }
     }
 
     void SetAnswers()
@@ -39,10 +79,22 @@ public class QuizManagerDin : MonoBehaviour
 
     void GenerateQuestion()
     {
-        currentQuestion = Random.Range(0, QnA.Count);
+        if (QnA.Count > 0)
+        {
+            currentQuestion = Random.Range(0, QnA.Count);
 
-        QuestionText.text = QnA[currentQuestion].Question;
+            QuestionText.text = QnA[currentQuestion].Question;
 
-        SetAnswers();
+            SetAnswers();
+        }
+        else
+        {
+            Debug.LogError("No questions available to generate.");
+        }
+    }
+
+    void UpdateScore()
+    {
+        ScoreText.text = "Score: " + score;
     }
 }
