@@ -12,7 +12,8 @@ using Random = UnityEngine.Random;
 public class IngredientChanger : MonoBehaviour
 {
     [SerializeField] private List<GameObject> slices;
-    private int colliderNumber;
+    List<bool> isOccupied = new List<bool>(9);
+    private int colliderNumber = 0;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer sliceRenderer;
     [SerializeField] private MouseTakip _mouseTakip;
@@ -47,19 +48,23 @@ public class IngredientChanger : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
             if (hit.collider != null)
             {
-                /*if (spriteRenderer != null)
+                colliderNumber = int.Parse(hit.collider.tag);
+                if (isOccupied[colliderNumber])
                 {
                     IngredientDeCounter();
-                }*/
-                spriteInt = _mouseTakip.toppingInt;
-                colliderNumber = int.Parse(hit.collider.tag);
-                Debug.Log(hit.collider + " " + colliderNumber);
-                spriteRenderer = slices[colliderNumber].GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = ingredientSprites[spriteInt];
-                if (spriteRenderer != null)
+                }
+                else
                 {
-                    IngredientCounter();
-                    
+                    isOccupied[colliderNumber] = true;
+                    spriteInt = _mouseTakip.toppingInt;
+                    Debug.Log(hit.collider + " " + colliderNumber);
+                    spriteRenderer = slices[colliderNumber].GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = ingredientSprites[spriteInt];
+                    if (spriteRenderer != null)
+                    {
+                        IngredientCounter();
+
+                    }
                 }
             }
             else if (hit.collider == null)
@@ -89,7 +94,7 @@ public class IngredientChanger : MonoBehaviour
         }
     }
 
-    /*void IngredientDeCounter()
+    void IngredientDeCounter()
     {
         if (spriteInt == 1)
         {
@@ -107,7 +112,7 @@ public class IngredientChanger : MonoBehaviour
         {
             mushroom--;
         }
-    }*/
+    }
 
     void RandomizeIngredients()
     {
@@ -198,5 +203,3 @@ public class IngredientChanger : MonoBehaviour
     }
 
 }
-
-
