@@ -1,5 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class DropZone : MonoBehaviour, IDropHandler
@@ -9,19 +12,22 @@ public class DropZone : MonoBehaviour, IDropHandler
     public HBDrag HBDragScript;
     public int maxLives = 3;
     private int currentLives;
-
     public Text livesText;
-    public GameObject gameOverText;
+    public SceneManagement sceneManagementScript;
+    public GameObject dropZones;
+    public int totalTries=0;
+
 
     private void Start()
     {
         currentLives = maxLives;
         UpdateLivesText();
-        gameOverText.SetActive(false);
+        sceneManagementScript = FindAnyObjectByType<SceneManagement>();
     }
 
     public void OnDrop(PointerEventData eventData)
     {
+        
         Debug.Log(gameObject.name);
         HBDragScript = eventData.pointerDrag.GetComponent<HBDrag>();
 
@@ -29,15 +35,17 @@ public class DropZone : MonoBehaviour, IDropHandler
         {
             Debug.Log("OnDrop");
             HBDragScript.gameObject.SetActive(false);
+            sceneManagementScript.totalTries++;
         }
         else
         {
             LoseLife();
+            sceneManagementScript.score-=sceneManagementScript.score/sceneManagementScript.numOfObjects;
         }
 
-        if (currentLives <= 0)
+        if (currentLives < 0)
         {
-            EndGame();
+            sceneManagementScript.GameOver();
         }
     }
 
@@ -60,9 +68,5 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         livesText.text = "Can: " + currentLives.ToString();
     }
-
-    private void EndGame()
-    {
-        gameOverText.SetActive(true);
-    }
 }
+

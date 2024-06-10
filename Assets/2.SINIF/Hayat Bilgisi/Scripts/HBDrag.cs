@@ -13,14 +13,13 @@ public class HBDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     private Vector2 initialPosition;
     public string clickedObjectName;
     public bool isInPlace;
-
     private DropZone dropZone;
     
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        dropZone = FindObjectOfType<DropZone>(); // DropZone bileşenini bul
+        dropZone = FindObjectOfType<DropZone>(); 
     }
 
     public void OnBeginDrag(PointerEventData eventData)

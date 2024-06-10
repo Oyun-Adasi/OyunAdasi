@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEditor.SearchService;
 
 public class mathLabScript : MonoBehaviour
 {
@@ -27,6 +29,10 @@ public class mathLabScript : MonoBehaviour
     public GameObject soru;
     public GameObject yanlis;
     public Button quit;
+    private int score=100;
+    public TMP_Text scoreText;
+    public GameObject Quit;
+    private int answeredQNum=0;
 
     void Awake(){
         geriDon.gameObject.SetActive(false);
@@ -38,11 +44,10 @@ public class mathLabScript : MonoBehaviour
     }
     void Update()
     {
-        startButton.onClick.AddListener(OnStartButtonClick);
-        optionA.onClick.AddListener(OnOptionButtonAClick);
-        optionB.onClick.AddListener(OnOptionButtonBClick);
-        optionC.onClick.AddListener(OnOptionButtonCClick);
-        geriDon.onClick.AddListener(OnOptionButtongeriDonClick);
+        Quit.SetActive(false);
+        scoreText.text="Puan: "+score.ToString();
+
+        EndGame();
     }
     public int randomQuestionGenerator(){
         int randomNum1=Random.Range(1,highestAnswer+1);
@@ -76,7 +81,7 @@ public class mathLabScript : MonoBehaviour
         wrongAns2 = Random.Range(1, 21);
     }
 }
-    void OnStartButtonClick(){
+    public void OnStartButtonClick(){
         startButtonText.text="Devam Et!";
         optionA.gameObject.SetActive(true);
         optionB.gameObject.SetActive(true);
@@ -108,7 +113,7 @@ public class mathLabScript : MonoBehaviour
                     break;
             }        
     }
-    void OnOptionButtonAClick(){
+    public void OnOptionButtonAClick(){
         if(ans==int.Parse(answerA.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -117,6 +122,7 @@ public class mathLabScript : MonoBehaviour
             optionsInvincible();
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
+            answeredQNum++;
 
             
         }
@@ -127,10 +133,12 @@ public class mathLabScript : MonoBehaviour
             backgroundChanger();
             isClickedA=true;
             wrongAnswerSelected();
+            score=score-10;
+
             
         }
     }
-    void OnOptionButtonBClick(){
+    public void OnOptionButtonBClick(){
         if(ans==int.Parse(answerB.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -139,6 +147,7 @@ public class mathLabScript : MonoBehaviour
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
+            answeredQNum++;
             
         }
         else{
@@ -148,10 +157,12 @@ public class mathLabScript : MonoBehaviour
             backgroundChanger();
             isClickedB=true;
             wrongAnswerSelected();
+            score=score-10;
+
             
         }
     }
-    void OnOptionButtonCClick(){
+    public void OnOptionButtonCClick(){
         if(ans==int.Parse(answerC.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -160,6 +171,7 @@ public class mathLabScript : MonoBehaviour
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
+            answeredQNum++;
             
 
         }
@@ -170,10 +182,12 @@ public class mathLabScript : MonoBehaviour
             backgroundChanger();
             isClickedC=true;
             wrongAnswerSelected();
+            score=score-10;
+
             
         }
     }
-    void OnOptionButtongeriDonClick(){
+    public void OnOptionButtongeriDonClick(){
         buttonInteractOn(optionA);
         buttonInteractOn(optionB);
         buttonInteractOn(optionC);
@@ -221,9 +235,21 @@ public class mathLabScript : MonoBehaviour
         yanlis.SetActive(false);
 
     }
-
-    public void Quit() {
+    public void QuitGame() {
         Application.Quit();
         Debug.Log("Quit");
+    }
+    public void EndGame(){
+        if(answeredQNum==10 || score==0){
+            optionsInvincible();
+            geriDon.gameObject.SetActive(false);
+            Quit.SetActive(true);
+            if(score!=100){
+                question.text="Oyun bitti. Puanın: "+score;
+            }
+            else{
+                question.text="Tebrikler! Tüm soruları doğru bildin! Puanın: "+score;
+            }
+        }
     }
     }

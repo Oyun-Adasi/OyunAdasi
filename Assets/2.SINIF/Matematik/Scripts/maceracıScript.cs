@@ -28,8 +28,10 @@ public class maceracıScript : MonoBehaviour
     private bool isClickedC;//to disable the option C if the button is clicked and it was wrong
     public GameObject kapı;
     public GameObject duvar;
-    public Button quit;
-
+    public int score=100;
+    public int answeredQNum=0;
+    public GameObject Quit;
+    public TMP_Text ScoreText;
     void Awake(){
         geriDon.gameObject.SetActive(false);
         optionA.gameObject.SetActive(false);
@@ -40,11 +42,15 @@ public class maceracıScript : MonoBehaviour
     }
     void Update()
     {
-        startButton.onClick.AddListener(OnStartButtonClick);
-        optionA.onClick.AddListener(OnOptionButtonAClick);
-        optionB.onClick.AddListener(OnOptionButtonBClick);
-        optionC.onClick.AddListener(OnOptionButtonCClick);
-        geriDon.onClick.AddListener(OnOptionButtongeriDonClick);
+        //startButton.onClick.AddListener(OnStartButtonClick);
+        //optionA.onClick.AddListener(OnOptionButtonAClick);
+        //optionB.onClick.AddListener(OnOptionButtonBClick);
+        //optionC.onClick.AddListener(OnOptionButtonCClick);
+        //geriDon.onClick.AddListener(OnOptionButtongeriDonClick);
+        Quit.SetActive(false);
+        ScoreText.text="Puan: "+score.ToString();
+        EndGame();
+
     }
     public int randomQuestionGenerator(){
         int randomNum1=Random.Range(1,highestAnswer+1);
@@ -98,7 +104,7 @@ public class maceracıScript : MonoBehaviour
         wrongAns2 = Random.Range(1, 21);
     }
 }
-    void OnStartButtonClick(){
+    public void OnStartButtonClick(){
         startButtonText.text="Devam Et!";
         optionA.gameObject.SetActive(true);
         optionB.gameObject.SetActive(true);
@@ -130,7 +136,7 @@ public class maceracıScript : MonoBehaviour
                     break;
             }        
     }
-    void OnOptionButtonAClick(){
+    public void OnOptionButtonAClick(){
         if(ans==int.Parse(answerA.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -139,6 +145,7 @@ public class maceracıScript : MonoBehaviour
             optionsInvincible();
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
+            answeredQNum++;
 
             
         }
@@ -149,10 +156,11 @@ public class maceracıScript : MonoBehaviour
             backgroundChanger();
             isClickedA=true;
             wrongAnswerSelected();
+            score-=10;
             
         }
     }
-    void OnOptionButtonBClick(){
+    public void OnOptionButtonBClick(){
         if(ans==int.Parse(answerB.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -161,7 +169,8 @@ public class maceracıScript : MonoBehaviour
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
-            
+            answeredQNum++;
+
         }
         else{
             question.text="Cevap yanlış olduğu için kapı açılmıyor. Geri dön ve tekrar dene!";
@@ -170,10 +179,12 @@ public class maceracıScript : MonoBehaviour
             backgroundChanger();
             isClickedB=true;
             wrongAnswerSelected();
-            
+            score-=10;
+
+           
         }
     }
-    void OnOptionButtonCClick(){
+    public void OnOptionButtonCClick(){
         if(ans==int.Parse(answerC.text)){
             buttonInteractOn(optionA);
             buttonInteractOn(optionB);
@@ -182,6 +193,8 @@ public class maceracıScript : MonoBehaviour
             startButton.gameObject.SetActive(true);
             question.text="Doğru!\n Sıradaki odaya geçebilirsin!";
             optionsInvincible();
+            answeredQNum++;
+
         }
         else{
             question.text="Cevap yanlış olduğu için kapı açılmıyor. Geri dön ve tekrar dene!";
@@ -190,9 +203,10 @@ public class maceracıScript : MonoBehaviour
             backgroundChanger();
             isClickedC=true;
             wrongAnswerSelected();
+            score-=10;
         }
     }
-    void OnOptionButtongeriDonClick(){
+    public void OnOptionButtongeriDonClick(){
         buttonInteractOn(optionA);
         buttonInteractOn(optionB);
         buttonInteractOn(optionC);
@@ -202,8 +216,13 @@ public class maceracıScript : MonoBehaviour
         backgroundChangerv2();
         if(operation==0)
             question.text="Yanlış!\n"+num1+" + "+num2+" işleminin sonucu kaçtır?";
-        else 
+        else if(operation==1)
             question.text="Yanlış!\n"+num1+" - "+num2+" işleminin sonucu kaçtır?";
+        else if(operation==2)
+            question.text="Yanlış!\n"+num1+" x "+num2+" işleminin sonucu kaçtır?";
+        else
+            question.text="Yanlış!\n"+num1+" / "+num2+" işleminin sonucu kaçtır?";
+        
 
         geriDon.gameObject.SetActive(false);
         if(isClickedA)
@@ -241,7 +260,7 @@ public class maceracıScript : MonoBehaviour
 
     }
 
-    public void Quit() {
+    public void QuitGame() {
         Application.Quit();
         Debug.Log("Quit");
     }
@@ -252,7 +271,18 @@ public class maceracıScript : MonoBehaviour
         else{
             return false;
         }
+    } 
+    public void EndGame(){
+        if(answeredQNum==10 || score==0){
+            optionsInvincible();
+            geriDon.gameObject.SetActive(false);
+            Quit.SetActive(true);
+            if(score!=100){
+                question.text="Oyun bitti. Puanın: "+score;
+            }
+            else{
+                question.text="Tebrikler! Tüm soruları doğru bildin! Puanın: "+score;
+            }
+        }
     }
-
-
     }

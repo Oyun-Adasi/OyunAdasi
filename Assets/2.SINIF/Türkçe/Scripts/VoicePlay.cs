@@ -6,8 +6,9 @@ using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
-public class Vplay : MonoBehaviour
+public class Voiceplay : MonoBehaviour
 {
     [SerializeField] public AudioClip[] audioClips;
     public string[] questions;
@@ -27,12 +28,15 @@ public class Vplay : MonoBehaviour
     bool[] takenAns;
     bool[] askedIndexes;
     int correctIndex;
-    bool isQuestionDisplayed = false;
+    int score=100;
     CustomGameObject clickedOption;
-    bool isCorrect;
+    public int numberOfQuestions=3;
+    public GameObject resetButton;
 
     void Start()
     {
+        resetButton.SetActive(false);
+        numberOfQuestions=answers.Length;
         voiceButton.onClick.AddListener(PlayAudioAndShowQuestion);
         optionA = new CustomGameObject();
         optionA.gameObject = optiona;
@@ -55,7 +59,7 @@ public class Vplay : MonoBehaviour
         playGame();
     }
 
-    void OptionModifier(int correctIndex, string[] arr)
+void OptionModifier(int correctIndex, string[] arr)
 {
     List<string> options = new List<string>(arr);
     
@@ -92,7 +96,7 @@ List<string> ShuffleList(List<string> list)
 void PlayAudioAndShowQuestion()
 {
     AudioSource.PlayClipAtPoint(audioClips[correctIndex], Vector3.zero);
-    isQuestionDisplayed = true;
+    //isQuestionDisplayed = true;
 }
 
     void ShowQuestionAndAnswers()
@@ -125,7 +129,6 @@ void PlayAudioAndShowQuestion()
     {
         Debug.Log("Correct");
         // Correct answer
-        isCorrect = true;
         playGame();
     }
     else
@@ -133,9 +136,11 @@ void PlayAudioAndShowQuestion()
         // Wrong answer
         Debug.Log("Wrong");
         clickedOption.gameObject.SetActive(false);
-        isCorrect = false;
+        score-=score/numberOfQuestions;
+        q.text="Yanlış! "+questions[correctIndex];
+        
     }
-}    public void OptionSelectedA()
+}   public void OptionSelectedA()
     {
         clickedOption=optionA;
         CheckAnswer();
@@ -234,6 +239,8 @@ void PlayAudioAndShowQuestion()
     void GameOver(){
         q.text="Oyunu bitirdiniz! Tebrikler!";
         options(1);
+        resetButton.SetActive(true);
         voiceButton.interactable=false;
     }
 }
+

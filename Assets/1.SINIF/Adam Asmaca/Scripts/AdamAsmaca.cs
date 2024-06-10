@@ -47,7 +47,7 @@ public class AdamAsmaca : MonoBehaviour
     public Button buttonC;
     public TextMeshProUGUI text;
     public TextMeshProUGUI canText;
-    int puan=100;
+    int score=100;
     public static int can=10;
     bool[] takenWords;
     bool[] takenSentences;
@@ -222,7 +222,7 @@ void OptionModifier(int correctIndex, string[] arr)
         option.gameObject.SetActive(false);
         can--;
         BackgroundChanger(can);
-        puan=puan-10;
+        score=score-10;
         canText.text = "Can: " + can;
         if (can < 0)
         {
@@ -278,7 +278,7 @@ void OptionModifier(int correctIndex, string[] arr)
             canText.text="";
         }
         else{
-            text.text="Oyunu tamamen bitirdin. Tebrikler!"+" Puanın: "+puan;
+            text.text="Oyunu tamamen bitirdin. Tebrikler!"+" Puanın: "+score;
         }
         Restart.SetActive(true);
         options(1);
