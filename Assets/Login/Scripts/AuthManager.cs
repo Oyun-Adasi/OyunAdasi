@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Firestore;
+using Firebase.Extensions;
 using TMPro;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
-
+using System;
 public class AuthManager : MonoBehaviour
 {
     [Header("Firebase")]
@@ -26,6 +28,11 @@ public class AuthManager : MonoBehaviour
     public TMP_InputField passwordRegisterField;
     public TMP_InputField passwordRegisterVerifyField;
     public TMP_Text warningRegisterText;
+
+    [Header("User Data")]
+    public UserData userData; // Reference to the UserData ScriptableObject
+
+    FirebaseFirestore db;
 
     void Awake()
     {
@@ -47,12 +54,14 @@ public class AuthManager : MonoBehaviour
     {
         Debug.Log("Setting up Firebase Auth");
         auth = FirebaseAuth.DefaultInstance;
+        db = FirebaseFirestore.DefaultInstance;
     }
 
     public void LoginButton()
     {
         StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
     }
+
     public void RegisterButton()
     {
         StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
@@ -92,11 +101,13 @@ public class AuthManager : MonoBehaviour
         }
         else
         {
-
             User = LoginTask.Result.User;
             Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
             warningLoginText.text = "";
             confirmLoginText.text = "Logged In";
+
+            // Fetch user data from Firestore
+            StartCoroutine(FetchUserData(User.UserId));
         }
     }
 
@@ -141,7 +152,6 @@ public class AuthManager : MonoBehaviour
             }
             else
             {
-
                 User = RegisterTask.Result.User;
 
                 if (User != null)
@@ -164,6 +174,44 @@ public class AuthManager : MonoBehaviour
                         warningRegisterText.text = "";
                     }
                 }
+            }
+        }
+    }
+
+    private IEnumerator FetchUserData(string userId)
+    {
+        DocumentReference docRef = db.Collection("users").Document(userId);
+        Task<DocumentSnapshot> task = docRef.GetSnapshotAsync();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (task.Exception != null)
+        {
+            Debug.LogError($"Failed to fetch user data: {task.Exception}");
+        }
+        else
+        {
+            DocumentSnapshot snapshot = task.Result;
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> userDataDict = snapshot.ToDictionary();
+
+                // Update the UserData ScriptableObject with fetched data
+                if (userDataDict.ContainsKey("classYear"))
+                    userData.classYear = Convert.ToInt32(userDataDict["classYear"]);
+                if (userDataDict.ContainsKey("name"))
+                    userData.userName = userDataDict["name"].ToString();
+                if (userDataDict.ContainsKey("surname"))
+                    userData.surname = userDataDict["surname"].ToString();
+                if (userDataDict.ContainsKey("role"))
+                    userData.role = userDataDict["role"].ToString();
+                if (userDataDict.ContainsKey("school"))
+                    userData.school = userDataDict["school"].ToString();
+                if (userDataDict.ContainsKey("score"))
+                    userData.score = Convert.ToInt32(userDataDict["score"]);
+            }
+            else
+            {
+                Debug.Log("User data does not exist.");
             }
         }
     }
