@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b861e10b96332c547b037d818d305ce3, type: 3}
   m_Name: User
   m_EditorClassIdentifier: 
-  classYear: 4
-  userName: talha
-  surname: Bozan
-  role: admin
-  school: "Cemil \xD6zg\xFCr"
-  score: 2143124
+  classYear: 21
+  userName: adsgasdg
+  surname: sdagasdg
+  role: sdag
+  school: asdgadsg
+  score: 1245215125
