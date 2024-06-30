@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/1.SINIF/Matematik Labirenti/Scenes/MatematikLabirenti.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Login/Scenes/LoginScene.unity
+    guid: d3c095d7e7b30644c925998a0b5842a5
+  - enabled: 1
+    path: Assets/USERGUI/USERGUI/USERGUI.unity
+    guid: d7911e459df47c64d9dfccc6eeb80e66
   m_configObjects: {}

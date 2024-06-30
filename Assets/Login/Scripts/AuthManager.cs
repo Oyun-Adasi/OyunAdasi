@@ -9,6 +9,8 @@ using TMPro;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
 using System;
+using UnityEngine.SceneManagement;
+
 public class AuthManager : MonoBehaviour
 {
     [Header("Firebase")]
@@ -107,7 +109,10 @@ public class AuthManager : MonoBehaviour
             confirmLoginText.text = "Logged In";
 
             // Fetch user data from Firestore
-            StartCoroutine(FetchUserData(User.UserId));
+            yield return StartCoroutine(FetchUserData(User.UserId));
+
+            // Change the scene after fetching user data
+            SceneManager.LoadScene(1);
         }
     }
 
