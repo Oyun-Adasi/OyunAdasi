@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "793904523099",
+    "project_id": "oyun-adasi",
+    "storage_bucket": "oyun-adasi.appspot.com",
+    "databaseURL": "https://oyun-adasi.firebaseio.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793904523099:android:6b5df47de0d871d63c5c7e",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.DDProject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOIPGgwmaNXAd0E9p00TjCT2GjPHkrlTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
